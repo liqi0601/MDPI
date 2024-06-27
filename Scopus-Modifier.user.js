@@ -12,7 +12,7 @@
 
 (function() {
     'use strict';
-    // 测试
+    
     // List of parameters to remove
     var paramsToRemove = ['&origin=peoplefinder', '&origin=resultsAnalyzer&zone=authorName', '&origin=recordpage'];
 
