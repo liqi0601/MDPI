@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Scopus-Modifier
-// @version      1.2
+// @version      1.3
 // @description  Modifies Scopus URLs to remove specific parameters
 // @author       Leif Assistant
 // @match        https://www.scopus.com/authid/detail.uri?*
@@ -11,7 +11,7 @@
 
 (function() {
     'use strict';
-    // 测试成功了吗？
+    
     // List of parameters to remove
     var paramsToRemove = ['&origin=peoplefinder', '&origin=resultsAnalyzer&zone=authorName', '&origin=recordpage'];
 
