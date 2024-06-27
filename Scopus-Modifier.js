@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Scopus URL Modifier
+// @name         Scopus-Modifier
 // @namespace    http://tampermonkey.net/
 // @version      2.0.1
 // @description  Modifies Scopus URLs to remove specific parameters
