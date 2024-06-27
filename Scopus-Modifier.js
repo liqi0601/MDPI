@@ -6,14 +6,14 @@
 // @author       Leif Assistant
 // @match        https://www.scopus.com/authid/detail.uri?*
 // @match        https://www2.scopus.com/authid/detail.uri?*
-// @updateURL    https://raw.githubusercontent.com/liqi0601/MDPI/main/Scopus%20URL%20Modifier?token=GHSAT0AAAAAACUEPFJAE7UUSEKEO7Y7HS6UZT43SOA
-// @downloadURL  https://raw.githubusercontent.com/liqi0601/MDPI/main/Scopus%20URL%20Modifier?token=GHSAT0AAAAAACUEPFJAE7UUSEKEO7Y7HS6UZT43SOA
+// @updateURL    https://raw.githubusercontent.com/liqi0601/MDPI/main/Scopus-Modifier.js
+// @downloadURL  https://raw.githubusercontent.com/liqi0601/MDPI/main/Scopus-Modifier.js
 // @grant        none
 // ==/UserScript==
 
 (function() {
     'use strict';
-    测试
+    // 测试
     // List of parameters to remove
     var paramsToRemove = ['&origin=peoplefinder', '&origin=resultsAnalyzer&zone=authorName', '&origin=recordpage'];
 
