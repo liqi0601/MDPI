@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Scopus URL Modifier
 // @namespace    http://tampermonkey.net/
-// @version      2.0
+// @version      2.0.1
 // @description  Modifies Scopus URLs to remove specific parameters
 // @author       Leif Assistant
 // @match        https://www.scopus.com/authid/detail.uri?*
