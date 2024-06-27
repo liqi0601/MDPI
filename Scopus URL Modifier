@@ -6,7 +6,7 @@
 // @author       Leif Assistant
 // @match        https://www.scopus.com/authid/detail.uri?*
 // @match        https://www2.scopus.com/authid/detail.uri?*
-// @updateURL    https://raw.githubusercontent.com/liqi0601/MDPI/main/yourscript.user.js
+// @updateURL    https://raw.githubusercontent.com/liqi0601/MDPI/main/Scopus%20URL%20Modifier?token=GHSAT0AAAAAACUEPFJB4NVOHUWCRRN42JAAZT43QKA
 // @downloadURL  https://raw.githubusercontent.com/liqi0601/MDPI/main/yourscript.user.js
 // @grant        none
 // ==/UserScript==
