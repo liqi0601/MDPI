@@ -1,14 +1,13 @@
 // ==UserScript==
 // @name         Scopus-Modifier
-// @namespace    http://tampermonkey.net/
+// @namespace    http://leif.qi/scopus
 // @version      2.0.1
 // @description  Modifies Scopus URLs to remove specific parameters
 // @author       Leif Assistant
 // @match        https://www.scopus.com/authid/detail.uri?*
 // @match        https://www2.scopus.com/authid/detail.uri?*
-// @updateURL    https://raw.githubusercontent.com/liqi0601/MDPI/main/Scopus-Modifier.js
-// @downloadURL  https://raw.githubusercontent.com/liqi0601/MDPI/main/Scopus-Modifier.js
-// @grant        none
+// @updateURL    https://raw.githubusercontent.com/liqi0601/MDPI/main/Scopus-Modifier.user.js
+// @downloadURL  https://raw.githubusercontent.com/liqi0601/MDPI/main/Scopus-Modifier.user.js
 // ==/UserScript==
 
 (function() {
