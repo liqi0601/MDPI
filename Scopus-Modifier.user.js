@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Scopus-Modifier
 // @namespace    http://leif.qi/scopus
-// @version      2.0.1
+// @version      2.0.2
 // @description  Modifies Scopus URLs to remove specific parameters
 // @author       Leif Assistant
 // @match        https://www.scopus.com/authid/detail.uri?*
