@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Scopus-Modifier
-// @version      1.4
+// @version      1.3
 // @icon64       https://cdn.elsevier.io/verona/includes/favicons/favicon-96x96.png
-// @description  Modifies Scopus URLs to remove specific parameters and add functionality
+// @description  Modifies Scopus URLs to remove specific parameters
 // @author       Leif Assistant
 // @match        https://www.scopus.com/authid/detail.uri?*
 // @match        https://www2.scopus.com/authid/detail.uri?*
@@ -12,23 +12,27 @@
 
 (function() {
     'use strict';
-
+    
     // List of parameters to remove
-    const paramsToRemove = ['&origin=peoplefinder', '&origin=resultsAnalyzer&zone=authorName', '&origin=recordpage'];
+    var paramsToRemove = ['&origin=peoplefinder', '&origin=resultsAnalyzer&zone=authorName', '&origin=recordpage'];
 
     // Get the current URL
-    let currentURL = window.location.href;
+    var currentURL = window.location.href;
+    var newURL = currentURL;
 
-    // Replace "www2" with "www" if necessary
-    if (currentURL.includes('www2.scopus.com')) {
-        currentURL = currentURL.replace('www2.scopus.com', 'www.scopus.com');
+    // Check if the URL starts with "https://www2.scopus.com/authid/detail.uri?authorId="
+    if (currentURL.startsWith('https://www2.scopus.com/authid/detail.uri?authorId=')) {
+        // Replace "www2" with "www"
+        newURL = newURL.replace('www2.scopus.com', 'www.scopus.com');
     }
 
-    // Remove specified parameters from the URL
-    let newURL = currentURL;
+    // Check if the URL starts with "https://www.scopus.com/authid/detail.uri?"
     if (newURL.startsWith('https://www.scopus.com/authid/detail.uri?')) {
-        paramsToRemove.forEach(param => {
+        // Loop through the list of parameters to remove
+        paramsToRemove.forEach(function(param) {
+            // Check if the URL contains the current parameter
             if (newURL.includes(param)) {
+                // Remove the current parameter from the URL
                 newURL = newURL.replace(param, '');
             }
         });
@@ -39,126 +43,102 @@
         }
     }
 
-    // Check if the URL contains 'origin=resultslist' and 'authorId='
-    if (currentURL.includes('origin=resultslist') && currentURL.includes('authorId=')) {
-        const urlParams = new URLSearchParams(currentURL.split('?')[1]);
-        const authorId = urlParams.get('authorId');
-        if (authorId) {
-            const newURL = `https://www.scopus.com/authid/detail.uri?authorId=${authorId}`;
-            window.location.href = newURL;
-            return; // Stop further execution as we are navigating to the new URL
-        }
-    }
-
     // Function to create and display the button, email container, and h-index container
     function createButtonAndContainers() {
-        // Create button
-        const button = document.createElement('button');
+        var button = document.createElement('button');
         button.textContent = 'Details';
-        button.style.cssText = `
-            position: fixed;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10000;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        `;
+        button.style.position = 'fixed';
+        button.style.top = '10px';
+        button.style.left = '50%';
+        button.style.transform = 'translateX(-50%)';
+        button.style.zIndex = '10000';
+        button.style.padding = '10px 20px';
+        button.style.fontSize = '16px';
+        button.style.backgroundColor = '#4CAF50';
+        button.style.color = 'white';
+        button.style.border = 'none';
+        button.style.borderRadius = '5px';
+        button.style.cursor = 'pointer';
 
-        // Create email container
-        const emailContainer = document.createElement('div');
-        emailContainer.style.cssText = `
-            position: fixed;
-            top: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10000;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #f0f0f0;
-            color: #333;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            max-width: 300px;
-            text-align: center;
-        `;
+        var emailContainer = document.createElement('div');
+        emailContainer.style.position = 'fixed';
+        emailContainer.style.top = '50px';
+        emailContainer.style.left = '50%';
+        emailContainer.style.transform = 'translateX(-50%)';
+        emailContainer.style.zIndex = '10000';
+        emailContainer.style.padding = '10px 20px';
+        emailContainer.style.fontSize = '16px';
+        emailContainer.style.backgroundColor = '#f0f0f0';
+        emailContainer.style.color = '#333';
+        emailContainer.style.border = '1px solid #ccc';
+        emailContainer.style.borderRadius = '5px';
+        emailContainer.style.maxWidth = '300px';
+        emailContainer.style.textAlign = 'center';
 
-        // Create h-index container
-        const hindexContainer = document.createElement('div');
-        hindexContainer.style.cssText = `
-            position: fixed;
-            top: 120px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10000;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #f0f0f0;
-            color: #333;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            max-width: 300px;
-            text-align: center;
-        `;
+        var hindexContainer = document.createElement('div');
+        hindexContainer.style.position = 'fixed';
+        hindexContainer.style.top = '120px';
+        hindexContainer.style.left = '50%';
+        hindexContainer.style.transform = 'translateX(-50%)';
+        hindexContainer.style.zIndex = '10000';
+        hindexContainer.style.padding = '10px 20px';
+        hindexContainer.style.fontSize = '16px';
+        hindexContainer.style.backgroundColor = '#f0f0f0';
+        hindexContainer.style.color = '#333';
+        hindexContainer.style.border = '1px solid #ccc';
+        hindexContainer.style.borderRadius = '5px';
+        hindexContainer.style.maxWidth = '300px';
+        hindexContainer.style.textAlign = 'center';
 
-        // Create email and h-index text elements
-        const emailText = document.createElement('span');
-        const hindexText = document.createElement('span');
+        var emailText = document.createElement('span');
+        var hindexText = document.createElement('span');
 
-        // Create copy hint
-        const copyHint = document.createElement('div');
+        var copyHint = document.createElement('div');
         copyHint.textContent = 'Click to copy';
-        copyHint.style.cssText = `
-            display: none;
-            font-size: 12px;
-            color: #555;
-        `;
+        copyHint.style.display = 'none';
+        copyHint.style.fontSize = '12px';
+        copyHint.style.color = '#555';
 
-        // Email container mouse events
-        emailContainer.onmouseover = () => {
+        emailContainer.onmouseover = function() {
             copyHint.style.display = 'block';
         };
-        emailContainer.onmouseout = () => {
+
+        emailContainer.onmouseout = function() {
             copyHint.style.display = 'none';
         };
 
-        // Email container click event
-        emailContainer.onclick = () => {
-            const email = emailText.textContent;
+        emailContainer.onclick = function() {
+            var email = emailText.textContent;
             if (email !== 'null' && email !== 'Error fetching email') {
-                navigator.clipboard.writeText(email).then(() => {
+                navigator.clipboard.writeText(email).then(function() {
                     copyHint.textContent = 'Copied!';
-                    setTimeout(() => {
+                    setTimeout(function() {
                         copyHint.textContent = 'Click to copy';
                     }, 2000);
-                }).catch(err => {
+                }, function(err) {
                     console.error('Error copying text: ', err);
                 });
             } else {
                 copyHint.textContent = 'No valid email to copy';
-                setTimeout(() => {
+                setTimeout(function() {
                     copyHint.textContent = 'Click to copy';
                 }, 2000);
             }
         };
 
-        // Button click event
-        button.onclick = (event) => {
-            const apiUrl = currentURL.replace('https://www.scopus.com/authid/detail.uri?authorId=', 'https://www.scopus.com/api/authors/');
+        button.onclick = function(event) {
+            var newUrlForButton = currentURL.replace('https://www.scopus.com/authid/detail.uri?authorId=', 'https://www.scopus.com/api/authors/');
             if (event.ctrlKey) {
-                event.preventDefault();
-                window.open(apiUrl, '_blank');
+                // Ctrl+click opens in a new tab
+                event.preventDefault(); // Prevent default button behavior
+                window.open(newUrlForButton, '_blank');
             } else {
-                window.location.href = apiUrl;
+                // Regular click opens in the current tab
+                window.location.href = newUrlForButton;
             }
         };
 
-        // Append elements to the document body
+
         document.body.appendChild(button);
         document.body.appendChild(emailContainer);
         document.body.appendChild(hindexContainer);
@@ -170,11 +150,14 @@
         console.log('Details button, email container, h-index container, and copy hint created');
 
         // Fetch the email address and h-index
+        var apiUrl = currentURL.replace('https://www.scopus.com/authid/detail.uri?authorId=', 'https://www.scopus.com/api/authors/');
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
-                emailText.textContent = data.emailAddress ? data.emailAddress : 'null';
-                hindexText.textContent = `h-index: ${data.hindex ? data.hindex : 'null'}`;
+                var email = data.emailAddress ? data.emailAddress : 'null';
+                var hindex = data.hindex ? data.hindex : 'null';
+                emailText.textContent = `${email}`;
+                hindexText.textContent = `h-index: ${hindex}`;
             })
             .catch(error => {
                 emailText.textContent = 'Error fetching email';
