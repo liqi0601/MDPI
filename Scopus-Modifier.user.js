@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Scopus-Modifier
-// @version      1.3
+// @version      1.4
 // @icon64       https://cdn.elsevier.io/verona/includes/favicons/favicon-96x96.png
 // @description  Modifies Scopus URLs to remove specific parameters
 // @author       Leif Assistant
@@ -12,7 +12,7 @@
 
 (function() {
     'use strict';
-    
+
     // List of parameters to remove
     var paramsToRemove = ['&origin=peoplefinder', '&origin=resultsAnalyzer&zone=authorName', '&origin=recordpage'];
 
@@ -24,6 +24,17 @@
     if (currentURL.startsWith('https://www2.scopus.com/authid/detail.uri?authorId=')) {
         // Replace "www2" with "www"
         newURL = newURL.replace('www2.scopus.com', 'www.scopus.com');
+    }
+
+    // Check if the URL contains 'origin=resultslist' and 'authorId='
+    if (currentURL.includes('origin=resultslist') && currentURL.includes('authorId=')) {
+        const urlParams = new URLSearchParams(currentURL.split('?')[1]);
+        const authorId = urlParams.get('authorId');
+        if (authorId) {
+            newURL = `https://www.scopus.com/authid/detail.uri?authorId=${authorId}`;
+            window.location.href = newURL;
+            return; // Stop further execution as we are navigating to the new URL
+        }
     }
 
     // Check if the URL starts with "https://www.scopus.com/authid/detail.uri?"
@@ -137,7 +148,6 @@
                 window.location.href = newUrlForButton;
             }
         };
-
 
         document.body.appendChild(button);
         document.body.appendChild(emailContainer);
