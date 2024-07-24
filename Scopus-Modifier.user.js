@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Scopus-Modifier
-// @version      1.4
+// @version      1.5
 // @icon64       https://cdn.elsevier.io/verona/includes/favicons/favicon-96x96.png
 // @description  Modifies Scopus URLs to remove specific parameters
 // @author       Leif Assistant
