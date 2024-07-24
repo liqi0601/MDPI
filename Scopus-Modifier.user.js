@@ -14,7 +14,7 @@
     'use strict';
 
     // List of parameters to remove
-    var paramsToRemove = ['&origin=peoplefinder', '&origin=resultsAnalyzer&zone=authorName', '&origin=recordpage'];
+    var paramsToRemove = ['&origin=peoplefinder', '&origin=resultsAnalyzer&zone=authorName', '&origin=recordpage', '&origin=recordPage'];
 
     // Get the current URL
     var currentURL = window.location.href;
@@ -54,22 +54,54 @@
         }
     }
 
-    // Function to create and display the button, email container, and h-index container
+    // Function to create and display the buttons and email container
     function createButtonAndContainers() {
-        var button = document.createElement('button');
-        button.textContent = 'Details';
-        button.style.position = 'fixed';
-        button.style.top = '10px';
-        button.style.left = '50%';
-        button.style.transform = 'translateX(-50%)';
-        button.style.zIndex = '10000';
-        button.style.padding = '10px 20px';
-        button.style.fontSize = '16px';
-        button.style.backgroundColor = '#4CAF50';
-        button.style.color = 'white';
-        button.style.border = 'none';
-        button.style.borderRadius = '5px';
-        button.style.cursor = 'pointer';
+        var detailButton = document.createElement('button');
+        detailButton.textContent = 'Details';
+        detailButton.style.position = 'fixed';
+        detailButton.style.top = '10px';
+        detailButton.style.left = '50%';
+        detailButton.style.transform = 'translateX(-50%)';
+        detailButton.style.zIndex = '10000';
+        detailButton.style.padding = '10px 20px';
+        detailButton.style.fontSize = '16px';
+        detailButton.style.backgroundColor = '#4CAF50';
+        detailButton.style.color = 'white';
+        detailButton.style.border = 'none';
+        detailButton.style.borderRadius = '5px';
+        detailButton.style.cursor = 'pointer';
+
+        var scholarButton = document.createElement('button');
+        scholarButton.textContent = 'Scholar';
+        scholarButton.style.position = 'fixed';
+        scholarButton.style.top = '120px';
+        scholarButton.style.left = '47%';
+        scholarButton.style.transform = 'translateX(-50%)';
+        scholarButton.style.zIndex = '10000';
+        scholarButton.style.padding = '10px 20px';
+        scholarButton.style.fontSize = '16px';
+        scholarButton.style.backgroundColor = '#4CAF50';
+        scholarButton.style.color = 'white';
+        scholarButton.style.border = 'none';
+        scholarButton.style.borderRadius = '5px';
+        scholarButton.style.cursor = 'pointer';
+        scholarButton.style.marginRight = '10px';
+
+        var searchButton = document.createElement('button');
+        searchButton.textContent = 'Search';
+        searchButton.style.position = 'fixed';
+        searchButton.style.top = '120px';
+        searchButton.style.left = '53%';
+        searchButton.style.transform = 'translateX(-50%)';
+        searchButton.style.zIndex = '10000';
+        searchButton.style.padding = '10px 20px';
+        searchButton.style.fontSize = '16px';
+        searchButton.style.backgroundColor = '#4CAF50';
+        searchButton.style.color = 'white';
+        searchButton.style.border = 'none';
+        searchButton.style.borderRadius = '5px';
+        searchButton.style.cursor = 'pointer';
+        searchButton.style.marginLeft = '10px';
 
         var emailContainer = document.createElement('div');
         emailContainer.style.position = 'fixed';
@@ -86,23 +118,7 @@
         emailContainer.style.maxWidth = '300px';
         emailContainer.style.textAlign = 'center';
 
-        var hindexContainer = document.createElement('div');
-        hindexContainer.style.position = 'fixed';
-        hindexContainer.style.top = '120px';
-        hindexContainer.style.left = '50%';
-        hindexContainer.style.transform = 'translateX(-50%)';
-        hindexContainer.style.zIndex = '10000';
-        hindexContainer.style.padding = '10px 20px';
-        hindexContainer.style.fontSize = '16px';
-        hindexContainer.style.backgroundColor = '#f0f0f0';
-        hindexContainer.style.color = '#333';
-        hindexContainer.style.border = '1px solid #ccc';
-        hindexContainer.style.borderRadius = '5px';
-        hindexContainer.style.maxWidth = '300px';
-        hindexContainer.style.textAlign = 'center';
-
         var emailText = document.createElement('span');
-        var hindexText = document.createElement('span');
 
         var copyHint = document.createElement('div');
         copyHint.textContent = 'Click to copy';
@@ -137,7 +153,7 @@
             }
         };
 
-        button.onclick = function(event) {
+        detailButton.onclick = function(event) {
             var newUrlForButton = currentURL.replace('https://www.scopus.com/authid/detail.uri?authorId=', 'https://www.scopus.com/api/authors/');
             if (event.ctrlKey) {
                 // Ctrl+click opens in a new tab
@@ -149,33 +165,63 @@
             }
         };
 
-        document.body.appendChild(button);
+        scholarButton.onclick = function() {
+            var apiUrl = currentURL.replace('https://www.scopus.com/authid/detail.uri?authorId=', 'https://www.scopus.com/api/authors/');
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    var fullName = data.preferredName.full;
+                    var nameParts = fullName.split(', ');
+                    var reversedName = `${nameParts[1]} ${nameParts[0]}`;
+                    var scholarUrl = `https://scholar.google.com/scholar?q=${encodeURIComponent(reversedName)}`;
+                    window.open(scholarUrl, '_blank');
+                })
+                .catch(error => {
+                    console.error('Error fetching author data:', error);
+                });
+        };
+
+        searchButton.onclick = function() {
+            var apiUrl = currentURL.replace('https://www.scopus.com/authid/detail.uri?authorId=', 'https://www.scopus.com/api/authors/');
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    var fullName = data.preferredName.full;
+                    var institution = data.latestAffiliatedInstitution.name;
+                    var nameParts = fullName.split(', ');
+                    var reversedName = `${nameParts[1]} ${nameParts[0]}`;
+                    var searchUrl = `https://www.google.com/search?q=${encodeURIComponent(reversedName + ', ' + institution)}`;
+                    window.open(searchUrl, '_blank');
+                })
+                .catch(error => {
+                    console.error('Error fetching author data:', error);
+                });
+        };
+
+        document.body.appendChild(detailButton);
+        document.body.appendChild(scholarButton);
+        document.body.appendChild(searchButton);
         document.body.appendChild(emailContainer);
-        document.body.appendChild(hindexContainer);
         emailContainer.appendChild(emailText);
         emailContainer.appendChild(copyHint);
-        hindexContainer.appendChild(hindexText);
 
         // Log to console to confirm button creation
-        console.log('Details button, email container, h-index container, and copy hint created');
+        console.log('Detail button, Scholar button, Search button, email container, and copy hint created');
 
-        // Fetch the email address and h-index
+        // Fetch the email address
         var apiUrl = currentURL.replace('https://www.scopus.com/authid/detail.uri?authorId=', 'https://www.scopus.com/api/authors/');
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
                 var email = data.emailAddress ? data.emailAddress : 'null';
-                var hindex = data.hindex ? data.hindex : 'null';
                 emailText.textContent = `${email}`;
-                hindexText.textContent = `h-index: ${hindex}`;
             })
             .catch(error => {
                 emailText.textContent = 'Error fetching email';
-                hindexText.textContent = 'Error fetching h-index';
                 console.error('Error:', error);
             });
     }
 
-    // Ensure the button and email container are created after the page is fully loaded
+    // Ensure the buttons and email container are created after the page is fully loaded
     window.addEventListener('load', createButtonAndContainers);
 })();
