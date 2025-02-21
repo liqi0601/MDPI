@@ -3,9 +3,8 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.1
 // @description  Get author's name from Scopus, search on Google Scholar and Google with institution info
-// @author       Leif Qi
+// @author       LQ
 // @match        https://www.scopus.com/authid/detail.uri?authorId=*
-// @grant        none
 // @updateURL    https://raw.githubusercontent.com/liqi0601/MDPI/refs/heads/main/Scholar_Search.js
 // @downloadURL  https://raw.githubusercontent.com/liqi0601/MDPI/refs/heads/main/Scholar_Search.js
 // ==/UserScript==
