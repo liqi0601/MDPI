@@ -5,8 +5,8 @@
 // @description  Get author's name from Scopus, search on Google Scholar and Google with institution info
 // @author       LQ
 // @match        https://www.scopus.com/authid/detail.uri?authorId=*
-// @updateURL    https://raw.githubusercontent.com/liqi0601/MDPI/refs/heads/main/Scholar_Search.js
-// @downloadURL  https://raw.githubusercontent.com/liqi0601/MDPI/refs/heads/main/Scholar_Search.js
+// @updateURL    https://raw.githubusercontent.com/liqi0601/MDPI/refs/heads/main/Scholar_Search.user.js
+// @downloadURL  https://raw.githubusercontent.com/liqi0601/MDPI/refs/heads/main/Scholar_Search.user.js
 // ==/UserScript==
 
 (function() {
