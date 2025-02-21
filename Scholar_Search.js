@@ -6,6 +6,8 @@
 // @author       Leif Qi
 // @match        https://www.scopus.com/authid/detail.uri?authorId=*
 // @grant        none
+// @updateURL    https://raw.githubusercontent.com/liqi0601/MDPI/refs/heads/main/Scholar_Search.js
+// @downloadURL  https://raw.githubusercontent.com/liqi0601/MDPI/refs/heads/main/Scholar_Search.js
 // ==/UserScript==
 
 (function() {
